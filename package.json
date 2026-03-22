@@ -1,7 +1,6 @@
 {
   "name": "real-estate-platform",
   "private": true,
-  "description": "MERN real estate + 3D — run backend, frontend, and local Mongo together",
   "scripts": {
     "start": "cd backend && npm install && node server.js",
     "install:all": "npm install --prefix backend && npm install --prefix frontend",
