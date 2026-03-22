@@ -1,0 +1,17 @@
+# Local MongoDB — works when Atlas is blocked (firewall / no IP whitelist).
+# From repo root:  docker compose up -d
+# Then ensure backend/.env.local sets MONGO_URI=mongodb://127.0.0.1:27017/realestate
+
+services:
+  mongo:
+    image: mongo:7
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_realestate_data:/data/db
+    environment:
+      MONGO_INITDB_DATABASE: realestate
+
+volumes:
+  mongo_realestate_data:

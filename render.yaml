@@ -1,0 +1,20 @@
+# Render Blueprint — https://render.com/docs/blueprint-spec
+# After first deploy, set secrets in the Render dashboard:
+#   MONGO_URI, JWT_SECRET, CLIENT_ORIGIN (your Vercel/Netlify frontend URL)
+
+services:
+  - type: web
+    name: real-estate-api
+    runtime: node
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGO_URI
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: CLIENT_ORIGIN
+        sync: false

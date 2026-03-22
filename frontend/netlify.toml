@@ -1,0 +1,9 @@
+# Netlify: set Base directory = frontend, or deploy from repo root with these paths adjusted.
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

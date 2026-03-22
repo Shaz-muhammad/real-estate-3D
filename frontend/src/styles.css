@@ -1,0 +1,75 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Dark (default when .dark on <html>) */
+.dark .neo-grid {
+  background-color: #000;
+  background-image:
+    radial-gradient(circle at 10% 20%, rgba(39, 247, 255, 0.12), transparent 40%),
+    radial-gradient(circle at 90% 20%, rgba(255, 59, 245, 0.1), transparent 40%),
+    radial-gradient(circle at 50% 90%, rgba(182, 255, 59, 0.08), transparent 45%),
+    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: auto, auto, auto, 64px 64px, 64px 64px;
+  background-position: center;
+}
+
+/* Light mode */
+html:not(.dark) .neo-grid {
+  background-color: #e8eef5;
+  background-image:
+    radial-gradient(circle at 10% 20%, rgba(39, 247, 255, 0.2), transparent 42%),
+    radial-gradient(circle at 90% 15%, rgba(255, 59, 245, 0.12), transparent 40%),
+    linear-gradient(rgba(15, 23, 42, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15, 23, 42, 0.06) 1px, transparent 1px);
+  background-size: auto, auto, 48px 48px, 48px 48px;
+}
+
+.dark .glass {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(14px);
+  color: #f8fafc;
+}
+
+html:not(.dark) .glass {
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(15, 23, 42, 0.1);
+  backdrop-filter: blur(14px);
+  color: #0f172a;
+  box-shadow: 0 4px 24px rgba(15, 23, 42, 0.08);
+}
+
+.btn-neon {
+  @apply relative inline-flex items-center justify-center rounded-xl px-4 py-2 font-semibold transition;
+  background: linear-gradient(90deg, rgba(39, 247, 255, 0.9), rgba(255, 59, 245, 0.85));
+  box-shadow: 0 0 24px rgba(39, 247, 255, 0.18), 0 0 34px rgba(255, 59, 245, 0.15);
+}
+.btn-neon:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 0 28px rgba(39, 247, 255, 0.25), 0 0 40px rgba(255, 59, 245, 0.2);
+}
+
+.dark .input-neo {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: #f8fafc;
+}
+html:not(.dark) .input-neo {
+  background: #fff;
+  border: 1px solid rgba(15, 23, 42, 0.15);
+  color: #0f172a;
+}
+.input-neo {
+  @apply w-full rounded-xl px-4 py-3 outline-none transition;
+}
+.input-neo:focus {
+  border-color: rgba(39, 247, 255, 0.6);
+  box-shadow: 0 0 0 4px rgba(39, 247, 255, 0.12);
+}
+
+/* Muted text that follows theme */
+.muted {
+  @apply text-slate-600 dark:text-white/60;
+}

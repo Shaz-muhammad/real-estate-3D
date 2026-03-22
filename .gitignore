@@ -1,0 +1,15 @@
+# Secrets — never commit
+backend/.env
+backend/.env.local
+frontend/.env
+*.local
+
+# Dependencies & build
+node_modules/
+frontend/dist/
+backend/uploads/*
+!backend/uploads/.gitkeep
+
+# OS / IDE
+.DS_Store
+Thumbs.db
