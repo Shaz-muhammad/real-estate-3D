@@ -23,16 +23,22 @@ export default function Signup() {
       setAuth(data);
       navigate(data.user.role === "seller" ? "/seller" : "/buyer");
     } catch (err) {
-      if (err?.response?.status === 409) {
-        setError("User already exists");
+      // Check if Axios response exists
+      if (err.response) {
+        if (err.response.status === 409) {
+          setError("User already exists"); // specifically for email already registered
+        } else if (err.response.data?.message) {
+          setError(err.response.data.message); // other server messages
+        } else {
+          setError("Signup failed");
+        }
       } else {
-        setError(err?.response?.data?.message || "Signup failed");
+        setError("Signup failed");
       }
     } finally {
       setLoading(false);
     }
   }
-
   return (
     <div className="mx-auto max-w-lg">
       <div className="glass rounded-3xl p-8 shadow-glow">
