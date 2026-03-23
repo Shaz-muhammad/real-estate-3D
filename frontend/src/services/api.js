@@ -3,7 +3,9 @@ import axios from "axios";
 import { getToken } from "./auth.js";
 
 // Use environment variable, fallback to localhost for dev
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080/api";
+const API_URL =
+  import.meta.env.VITE_API_URL ||
+  "https://real-estate-api-production-bdf6.up.railway.app/api";
 
 const api = axios.create({
   baseURL: API_URL, // IMPORTANT: no extra /api here unless your backend routes need it
