@@ -18,22 +18,25 @@ export default function Signup() {
     e.preventDefault();
     setError("");
     setLoading(true);
+
     try {
       const data = await register(form);
       setAuth(data);
       navigate(data.user.role === "seller" ? "/seller" : "/buyer");
     } catch (err) {
-      // Check if Axios response exists
-      if (err.response) {
-        if (err.response.status === 409) {
-          setError("User already exists"); // specifically for email already registered
-        } else if (err.response.data?.message) {
-          setError(err.response.data.message); // other server messages
-        } else {
-          setError("Signup failed");
-        }
+      console.error("Signup error:", err); // log full error to see structure
+
+      // Try all ways to get the message
+      const message =
+        err.response?.data?.message || // server returned message
+        err.message || // network or Axios-level error
+        "Signup failed";
+
+      // If 409, specifically say user exists
+      if (err.response?.status === 409) {
+        setError("User already exists");
       } else {
-        setError("Signup failed");
+        setError(message);
       }
     } finally {
       setLoading(false);
