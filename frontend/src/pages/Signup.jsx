@@ -1,3 +1,4 @@
+// frontend/src/pages/Signup.jsx
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { register } from "../services/authApi.js";
@@ -24,24 +25,22 @@ export default function Signup() {
       setAuth(data);
       navigate(data.user.role === "seller" ? "/seller" : "/buyer");
     } catch (err) {
-      console.error("Signup error:", err); // log full error to see structure
+      console.error("Signup error:", err);
 
-      // Try all ways to get the message
-      const message =
-        err.response?.data?.message || // server returned message
-        err.message || // network or Axios-level error
-        "Signup failed";
-
-      // If 409, specifically say user exists
+      // Explicitly check for 409 Conflict
       if (err.response?.status === 409) {
         setError("User already exists");
       } else {
+        // Fallback to server message or generic
+        const message =
+          err.response?.data?.message || err.message || "Signup failed";
         setError(message);
       }
     } finally {
       setLoading(false);
     }
   }
+
   return (
     <div className="mx-auto max-w-lg">
       <div className="glass rounded-3xl p-8 shadow-glow">
@@ -50,11 +49,11 @@ export default function Signup() {
           Choose a role. You can login via dedicated buyer/seller pages.
         </p>
 
-        {error ? (
+        {error && (
           <div className="mt-4 rounded-2xl border border-red-500/30 bg-red-500/10 p-3 text-sm text-red-200">
             {error}
           </div>
-        ) : null}
+        )}
 
         <form onSubmit={onSubmit} className="mt-6 space-y-4">
           <input
