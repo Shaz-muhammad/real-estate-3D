@@ -28,7 +28,7 @@ dns.setDefaultResultOrder("ipv4first");
 const ALLOWED_ORIGINS = [
   "http://localhost:5173",
   "http://127.0.0.1:5173",
-  "https://real-estate-3-d.vercel.app", // <-- REPLACE with your deployed Vercel URL
+  "https://real-estate-3-d.vercel.app", // <-- your Vercel frontend URL
 ];
 
 // CORS helper
@@ -45,6 +45,12 @@ if (process.env.NODE_ENV === "production") {
   app.set("trust proxy", 1);
 }
 app.use(express.json());
+
+// Log every incoming request (for debugging signup/login)
+app.use((req, res, next) => {
+  console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
+  next();
+});
 
 // CORS middleware
 app.use(
@@ -85,6 +91,8 @@ if (!MONGO_URI) {
   console.error("Missing MONGO_URI (or MONGO_URI_DIRECT) in .env");
   process.exit(1);
 }
+
+console.log("Using MongoDB URI:", MONGO_URI);
 
 // Connect to MongoDB
 mongoose
