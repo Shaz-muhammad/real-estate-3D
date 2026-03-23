@@ -5,7 +5,12 @@ import { setAuth } from "../services/auth.js";
 
 export default function Signup() {
   const navigate = useNavigate();
-  const [form, setForm] = useState({ name: "", email: "", password: "", role: "buyer" });
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    password: "",
+    role: "buyer",
+  });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -18,7 +23,11 @@ export default function Signup() {
       setAuth(data);
       navigate(data.user.role === "seller" ? "/seller" : "/buyer");
     } catch (err) {
-      setError(err?.response?.data?.message || "Signup failed");
+      if (err?.response?.status === 409) {
+        setError("User already exists");
+      } else {
+        setError(err?.response?.data?.message || "Signup failed");
+      }
     } finally {
       setLoading(false);
     }
@@ -28,7 +37,9 @@ export default function Signup() {
     <div className="mx-auto max-w-lg">
       <div className="glass rounded-3xl p-8 shadow-glow">
         <h2 className="text-2xl font-semibold">Create your account</h2>
-        <p className="mt-2 text-sm text-white/60">Choose a role. You can login via dedicated buyer/seller pages.</p>
+        <p className="mt-2 text-sm text-white/60">
+          Choose a role. You can login via dedicated buyer/seller pages.
+        </p>
 
         {error ? (
           <div className="mt-4 rounded-2xl border border-red-500/30 bg-red-500/10 p-3 text-sm text-red-200">
@@ -57,7 +68,9 @@ export default function Signup() {
             placeholder="Password"
             type="password"
             value={form.password}
-            onChange={(e) => setForm((f) => ({ ...f, password: e.target.value }))}
+            onChange={(e) =>
+              setForm((f) => ({ ...f, password: e.target.value }))
+            }
             required
           />
 
@@ -86,7 +99,10 @@ export default function Signup() {
             </button>
           </div>
 
-          <button className="btn-neon w-full justify-center text-black" disabled={loading}>
+          <button
+            className="btn-neon w-full justify-center text-black"
+            disabled={loading}
+          >
             {loading ? "Creating..." : "Create account"}
           </button>
         </form>
@@ -97,7 +113,10 @@ export default function Signup() {
             Buyer login
           </Link>{" "}
           or{" "}
-          <Link className="text-neon-magenta hover:underline" to="/login/seller">
+          <Link
+            className="text-neon-magenta hover:underline"
+            to="/login/seller"
+          >
             Seller login
           </Link>
           .
@@ -106,4 +125,3 @@ export default function Signup() {
     </div>
   );
 }
-
