@@ -29,7 +29,9 @@ export default function SellerLogin() {
     <div className="mx-auto max-w-lg">
       <div className="glass rounded-3xl p-8 shadow-glow2">
         <h2 className="text-2xl font-semibold">Seller login</h2>
-        <p className="mt-2 text-sm text-white/60">Upload images + 3D models to captivate buyers.</p>
+        <p className="mt-2 text-sm text-white/60">
+          Upload images + 3D models to captivate buyers.
+        </p>
 
         {error ? (
           <div className="mt-4 rounded-2xl border border-red-500/30 bg-red-500/10 p-3 text-sm text-red-200">
@@ -51,15 +53,20 @@ export default function SellerLogin() {
             placeholder="Password"
             type="password"
             value={form.password}
-            onChange={(e) => setForm((f) => ({ ...f, password: e.target.value }))}
+            onChange={(e) =>
+              setForm((f) => ({ ...f, password: e.target.value }))
+            }
             required
           />
-          <button className="btn-neon w-full justify-center text-black" disabled={loading}>
+          <button
+            className="btn-neon w-full justify-center text-black"
+            disabled={loading}
+          >
             {loading ? "Signing in..." : "Login"}
           </button>
         </form>
 
-        <div className="mt-6 text-sm text-white/60">
+        <div className="mt-6 text-sm text-black/60">
           New here?{" "}
           <Link className="text-neon-cyan hover:underline" to="/signup">
             Create an account
@@ -74,4 +81,3 @@ export default function SellerLogin() {
     </div>
   );
 }
-
