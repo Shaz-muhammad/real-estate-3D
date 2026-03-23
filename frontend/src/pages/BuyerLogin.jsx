@@ -19,29 +19,33 @@ export default function BuyerLogin() {
       setAuth(data);
       navigate(location.state?.from || "/buyer");
     } catch (err) {
-      setError(err?.response?.data?.message || "Login failed");
+      const message =
+        err?.response?.data?.message || err?.message || "Login failed";
+      setError(message);
     } finally {
       setLoading(false);
     }
   }
 
   return (
-    <div className="mx-auto max-w-lg">
-      <div className="glass rounded-3xl p-8 shadow-glow">
-        <h2 className="text-2xl font-semibold">Buyer login</h2>
-        <p className="mt-2 text-sm text-white/60">
+    <div className="mx-auto max-w-lg p-4">
+      <div className="glass rounded-3xl p-8 shadow-glow bg-white/10 dark:bg-black/20 text-black dark:text-white transition-colors duration-300">
+        <h2 className="text-2xl font-semibold text-black dark:text-white">
+          Buyer login
+        </h2>
+        <p className="mt-2 text-sm text-black/70 dark:text-white/70">
           Browse listings, filter, and view 3D.
         </p>
 
-        {error ? (
+        {error && (
           <div className="mt-4 rounded-2xl border border-red-500/30 bg-red-500/10 p-3 text-sm text-red-200">
             {error}
           </div>
-        ) : null}
+        )}
 
         <form onSubmit={onSubmit} className="mt-6 space-y-4">
           <input
-            className="input-neo"
+            className="input-neo bg-white/90 dark:bg-black/80 text-black dark:text-white placeholder-black/50 dark:placeholder-white/50 border border-black/20 dark:border-white/20"
             placeholder="Email"
             type="email"
             value={form.email}
@@ -49,7 +53,7 @@ export default function BuyerLogin() {
             required
           />
           <input
-            className="input-neo"
+            className="input-neo bg-white/90 dark:bg-black/80 text-black dark:text-white placeholder-black/50 dark:placeholder-white/50 border border-black/20 dark:border-white/20"
             placeholder="Password"
             type="password"
             value={form.password}
@@ -59,14 +63,14 @@ export default function BuyerLogin() {
             required
           />
           <button
-            className="btn-neon w-full justify-center text-black"
+            className="btn-neon w-full justify-center text-black dark:text-white"
             disabled={loading}
           >
             {loading ? "Signing in..." : "Login"}
           </button>
         </form>
 
-        <div className="mt-6 text-sm text-black/60">
+        <div className="mt-6 text-sm text-black/60 dark:text-white/60">
           New here?{" "}
           <Link className="text-neon-cyan hover:underline" to="/signup">
             Create an account
