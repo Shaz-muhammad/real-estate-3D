@@ -3,19 +3,19 @@ import { Link } from "react-router-dom";
 
 export default function Landing() {
   return (
-    <div className="grid gap-8 md:grid-cols-2 md:items-center">
+    <div className="grid gap-8 md:grid-cols-2 md:items-center p-4">
       {/* Left Card */}
-      <div className="glass rounded-3xl p-8 shadow-glow">
-        <div className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-black/5 px-3 py-1 text-xs text-black/70 dark:border-white/10 dark:bg-white/5 dark:text-white/70">
+      <div className="glass rounded-3xl p-8 shadow-glow bg-white/10 dark:bg-black/20 text-black dark:text-white transition-colors duration-300">
+        <div className="inline-flex items-center gap-2 rounded-full border border-black/20 dark:border-white/20 bg-black/5 dark:bg-white/5 px-3 py-1 text-xs text-black/70 dark:text-white/70">
           <span className="h-2 w-2 rounded-full bg-neon-cyan shadow-glow" />
           Futuristic real estate marketplace
         </div>
 
-        <h1 className="mt-5 text-4xl font-semibold leading-tight md:text-5xl text-black dark:text-white">
+        <h1 className="mt-5 text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight text-black dark:text-white">
           Explore properties with{" "}
           <span className="text-neon-cyan">interactive 3D</span>.
         </h1>
-        <p className="mt-4 text-black/70 dark:text-white/70">
+        <p className="mt-4 text-black/70 dark:text-white/70 text-sm sm:text-base">
           Sellers upload images and 3D models. Buyers browse, filter, and view
           listings in a sleek, dynamic interface built for modern property
           discovery.
@@ -26,7 +26,7 @@ export default function Landing() {
             Enter Buyer Dashboard
           </Link>
           <Link
-            className="rounded-xl border border-black/15 bg-black/5 px-4 py-2 font-semibold hover:bg-black/10 dark:border-white/15 dark:bg-white/5 dark:hover:bg-white/10 transition"
+            className="rounded-xl border border-black/15 dark:border-white/15 bg-black/5 dark:bg-white/5 px-4 py-2 font-semibold hover:bg-black/10 dark:hover:bg-white/10 transition-colors"
             to="/seller"
           >
             Enter Seller Dashboard
@@ -34,20 +34,20 @@ export default function Landing() {
         </div>
 
         <div className="mt-8 grid gap-3 text-sm sm:grid-cols-2">
-          <div className="rounded-2xl border border-black/10 bg-black/5 p-4 dark:border-white/10 dark:bg-white/5">
-            <div className="text-black/90 dark:text-white font-semibold">
+          <div className="rounded-2xl border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 p-4 transition-colors">
+            <div className="font-semibold text-black/90 dark:text-white">
               For sellers
             </div>
-            <div className="mt-1 text-black/70 dark:text-white/70">
+            <div className="mt-1 text-black/70 dark:text-white/70 text-sm">
               Upload property photos + a 3D model file (.glb/.gltf/.usdz) to
               stand out.
             </div>
           </div>
-          <div className="rounded-2xl border border-black/10 bg-black/5 p-4 dark:border-white/10 dark:bg-white/5">
-            <div className="text-black/90 dark:text-white font-semibold">
+          <div className="rounded-2xl border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 p-4 transition-colors">
+            <div className="font-semibold text-black/90 dark:text-white">
               For buyers
             </div>
-            <div className="mt-1 text-black/70 dark:text-white/70">
+            <div className="mt-1 text-black/70 dark:text-white/70 text-sm">
               Search and filter listings, then inspect with an interactive 3D
               viewer.
             </div>
@@ -56,7 +56,7 @@ export default function Landing() {
       </div>
 
       {/* Right Card */}
-      <div className="relative overflow-hidden rounded-3xl border border-black/10 bg-gradient-to-br from-black/5 to-black/0 p-8 shadow-glow2 dark:border-white/10 dark:from-white/5 dark:to-white/0">
+      <div className="relative overflow-hidden rounded-3xl border border-black/10 dark:border-white/10 bg-gradient-to-br from-black/5 to-black/0 dark:from-white/5 dark:to-white/0 p-8 shadow-glow2 transition-colors">
         <div className="absolute -right-20 -top-20 h-56 w-56 rounded-full bg-neon-magenta/20 blur-3xl" />
         <div className="absolute -left-20 -bottom-20 h-56 w-56 rounded-full bg-neon-cyan/20 blur-3xl" />
 
@@ -69,7 +69,7 @@ export default function Landing() {
               className="glass rounded-2xl p-4 hover:shadow-glow transition"
               to="/signup"
             >
-              <div className="text-black/90 dark:text-white font-semibold">
+              <div className="font-semibold text-black/90 dark:text-white">
                 Create an account
               </div>
               <div className="text-sm text-black/60 dark:text-white/60">
@@ -80,7 +80,7 @@ export default function Landing() {
               className="glass rounded-2xl p-4 hover:shadow-glow transition"
               to="/login/buyer"
             >
-              <div className="text-black/90 dark:text-white font-semibold">
+              <div className="font-semibold text-black/90 dark:text-white">
                 Buyer login
               </div>
               <div className="text-sm text-black/60 dark:text-white/60">
@@ -91,7 +91,7 @@ export default function Landing() {
               className="glass rounded-2xl p-4 hover:shadow-glow transition"
               to="/login/seller"
             >
-              <div className="text-black/90 dark:text-white font-semibold">
+              <div className="font-semibold text-black/90 dark:text-white">
                 Seller login
               </div>
               <div className="text-sm text-black/60 dark:text-white/60">
