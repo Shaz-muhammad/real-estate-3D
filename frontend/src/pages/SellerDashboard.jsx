@@ -336,7 +336,12 @@ export default function SellerDashboard() {
                 type="file"
                 accept=".jpg,.jpeg,.png,.webp"
                 multiple
-                onChange={(e) => setImages(Array.from(e.target.files || []))}
+                onChange={(e) => {
+                  const files = Array.from(e.target.files || []).filter(
+                    (file) => file && file.size > 0,
+                  );
+                  setImages(files);
+                }}
               />
               <div className="text-xs muted">
                 {images.length ? `${images.length} file(s)` : "Optional"}
