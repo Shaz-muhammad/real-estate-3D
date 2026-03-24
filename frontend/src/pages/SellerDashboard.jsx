@@ -14,7 +14,11 @@ const allowedImage = new Set(["image/jpeg", "image/png", "image/webp"]);
 const allowedModelExt = new Set(["glb", "gltf", "usdz"]);
 
 export default function SellerDashboard() {
-  const [stats, setStats] = useState({ loading: true, error: "", propertyCount: 0 });
+  const [stats, setStats] = useState({
+    loading: true,
+    error: "",
+    propertyCount: 0,
+  });
   const [mine, setMine] = useState({ loading: true, error: "", props: [] });
 
   const [form, setForm] = useState({
@@ -49,13 +53,21 @@ export default function SellerDashboard() {
       const s = await getSellerStatsMe();
       setStats({ loading: false, error: "", propertyCount: s.propertyCount });
     } catch (e) {
-      setStats({ loading: false, error: e?.response?.data?.message || "Failed to load stats", propertyCount: 0 });
+      setStats({
+        loading: false,
+        error: e?.response?.data?.message || "Failed to load stats",
+        propertyCount: 0,
+      });
     }
     try {
       const props = await getMyProperties();
       setMine({ loading: false, error: "", props });
     } catch (e) {
-      setMine({ loading: false, error: e?.response?.data?.message || "Failed to load properties", props: [] });
+      setMine({
+        loading: false,
+        error: e?.response?.data?.message || "Failed to load properties",
+        props: [],
+      });
     }
   }
 
@@ -104,7 +116,10 @@ export default function SellerDashboard() {
     if (editModel) {
       const ext = editModel.name.split(".").pop()?.toLowerCase() || "";
       if (!allowedModelExt.has(ext)) {
-        setEditSubmit({ loading: false, error: "Only .glb/.gltf/.usdz for 3D" });
+        setEditSubmit({
+          loading: false,
+          error: "Only .glb/.gltf/.usdz for 3D",
+        });
         return;
       }
     }
@@ -127,7 +142,10 @@ export default function SellerDashboard() {
       closeEdit();
       await refresh();
     } catch (err) {
-      setEditSubmit({ loading: false, error: err?.response?.data?.message || "Update failed" });
+      setEditSubmit({
+        loading: false,
+        error: err?.response?.data?.message || "Update failed",
+      });
     }
   }
 
@@ -154,11 +172,13 @@ export default function SellerDashboard() {
   function validateUploads() {
     if (!form.title.trim()) return "Title is required";
     for (const f of images) {
-      if (!allowedImage.has(f.type)) return "Only .jpg/.png/.webp images are allowed";
+      if (!allowedImage.has(f.type))
+        return "Only .jpg/.png/.webp images are allowed";
     }
     if (model3d) {
       const ext = modelType;
-      if (!allowedModelExt.has(ext)) return "Only .glb/.gltf/.usdz model files are allowed";
+      if (!allowedModelExt.has(ext))
+        return "Only .glb/.gltf/.usdz model files are allowed";
     }
     return "";
   }
@@ -191,7 +211,11 @@ export default function SellerDashboard() {
       setModel3d(null);
       await refresh();
     } catch (e2) {
-      setSubmit({ loading: false, error: e2?.response?.data?.message || "Upload failed", ok: "" });
+      setSubmit({
+        loading: false,
+        error: e2?.response?.data?.message || "Upload failed",
+        ok: "",
+      });
     }
   }
 
@@ -201,17 +225,23 @@ export default function SellerDashboard() {
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div>
             <h2 className="text-2xl font-semibold">Seller Dashboard</h2>
-            <p className="mt-1 text-sm muted">Upload, edit, mark sold, or delete your listings.</p>
+            <p className="mt-1 text-sm muted">
+              Upload, edit, mark sold, or delete your listings.
+            </p>
           </div>
           <div className="rounded-2xl border border-slate-200 bg-slate-100/80 p-4 text-sm dark:border-white/10 dark:bg-white/5">
             {stats.loading ? (
               <Loading label="Loading stats..." />
             ) : stats.error ? (
-              <div className="text-red-600 dark:text-red-200">{stats.error}</div>
+              <div className="text-red-600 dark:text-red-200">
+                {stats.error}
+              </div>
             ) : (
               <div>
                 <div className="muted">Properties uploaded</div>
-                <div className="text-2xl font-semibold text-neon-cyan">{stats.propertyCount}</div>
+                <div className="text-2xl font-semibold text-neon-cyan">
+                  {stats.propertyCount}
+                </div>
               </div>
             )}
           </div>
@@ -222,7 +252,8 @@ export default function SellerDashboard() {
         <div className="glass rounded-3xl p-6 shadow-glow">
           <h3 className="text-lg font-semibold">Upload a property</h3>
           <p className="mt-1 text-sm muted">
-            Images (.jpg/.png/.webp) and 3D (.glb/.gltf/.usdz). New listings start as <strong>Available</strong>.
+            Images (.jpg/.png/.webp) and 3D (.glb/.gltf/.usdz). New listings
+            start as <strong>Available</strong>.
           </p>
           {submit.error ? (
             <div className="mt-4 rounded-2xl border border-red-500/30 bg-red-500/10 p-3 text-sm text-red-700 dark:text-red-200">
@@ -239,20 +270,26 @@ export default function SellerDashboard() {
               className="input-neo"
               placeholder="Title"
               value={form.title}
-              onChange={(e) => setForm((f) => ({ ...f, title: e.target.value }))}
+              onChange={(e) =>
+                setForm((f) => ({ ...f, title: e.target.value }))
+              }
               required
             />
             <textarea
               className="input-neo min-h-[110px]"
               placeholder="Description (optional)"
               value={form.description}
-              onChange={(e) => setForm((f) => ({ ...f, description: e.target.value }))}
+              onChange={(e) =>
+                setForm((f) => ({ ...f, description: e.target.value }))
+              }
             />
             <input
               className="input-neo"
               placeholder="Location (optional)"
               value={form.location}
-              onChange={(e) => setForm((f) => ({ ...f, location: e.target.value }))}
+              onChange={(e) =>
+                setForm((f) => ({ ...f, location: e.target.value }))
+              }
             />
             <div className="grid gap-3 md:grid-cols-2">
               <input
@@ -260,28 +297,36 @@ export default function SellerDashboard() {
                 placeholder="Price (optional)"
                 type="number"
                 value={form.price}
-                onChange={(e) => setForm((f) => ({ ...f, price: e.target.value }))}
+                onChange={(e) =>
+                  setForm((f) => ({ ...f, price: e.target.value }))
+                }
               />
               <input
                 className="input-neo"
                 placeholder="Area (m²) (optional)"
                 type="number"
                 value={form.areaSqm}
-                onChange={(e) => setForm((f) => ({ ...f, areaSqm: e.target.value }))}
+                onChange={(e) =>
+                  setForm((f) => ({ ...f, areaSqm: e.target.value }))
+                }
               />
               <input
                 className="input-neo"
                 placeholder="Bedrooms (optional)"
                 type="number"
                 value={form.bedrooms}
-                onChange={(e) => setForm((f) => ({ ...f, bedrooms: e.target.value }))}
+                onChange={(e) =>
+                  setForm((f) => ({ ...f, bedrooms: e.target.value }))
+                }
               />
               <input
                 className="input-neo"
                 placeholder="Bathrooms (optional)"
                 type="number"
                 value={form.bathrooms}
-                onChange={(e) => setForm((f) => ({ ...f, bathrooms: e.target.value }))}
+                onChange={(e) =>
+                  setForm((f) => ({ ...f, bathrooms: e.target.value }))
+                }
               />
             </div>
             <div className="space-y-2">
@@ -293,7 +338,9 @@ export default function SellerDashboard() {
                 multiple
                 onChange={(e) => setImages(Array.from(e.target.files || []))}
               />
-              <div className="text-xs muted">{images.length ? `${images.length} file(s)` : "Optional"}</div>
+              <div className="text-xs muted">
+                {images.length ? `${images.length} file(s)` : "Optional"}
+              </div>
             </div>
             <div className="space-y-2">
               <div className="text-sm muted">3D model (optional)</div>
@@ -304,10 +351,15 @@ export default function SellerDashboard() {
                 onChange={(e) => setModel3d((e.target.files || [])[0] || null)}
               />
               <div className="text-xs muted">
-                {model3d ? `${model3d.name} (${modelType})` : "GLB/GLTF recommended"}
+                {model3d
+                  ? `${model3d.name} (${modelType})`
+                  : "GLB/GLTF recommended"}
               </div>
             </div>
-            <button className="btn-neon w-full justify-center text-black" disabled={submit.loading}>
+            <button
+              className="btn-neon w-full justify-center text-black"
+              disabled={submit.loading}
+            >
               {submit.loading ? "Uploading..." : "Upload property"}
             </button>
           </form>
@@ -315,17 +367,34 @@ export default function SellerDashboard() {
 
         <div className="glass rounded-3xl p-6 shadow-glow2">
           <h3 className="text-lg font-semibold">3D capture apps</h3>
-          <p className="mt-1 text-sm muted">Export GLB/GLTF for the best in-browser preview.</p>
+          <p className="mt-1 text-sm muted">
+            Export GLB/GLTF for the best in-browser preview.
+          </p>
           <div className="mt-4 grid gap-3">
-            <a className="glass rounded-2xl p-4 transition hover:shadow-glow" href="https://poly.cam/" target="_blank" rel="noreferrer">
+            <a
+              className="glass rounded-2xl p-4 transition hover:shadow-glow"
+              href="https://poly.cam/"
+              target="_blank"
+              rel="noreferrer"
+            >
               <div className="font-semibold">Polycam</div>
               <div className="text-sm muted">LiDAR / photogrammetry → GLB</div>
             </a>
-            <a className="glass rounded-2xl p-4 transition hover:shadow-glow" href="https://www.qlone.pro/" target="_blank" rel="noreferrer">
+            <a
+              className="glass rounded-2xl p-4 transition hover:shadow-glow"
+              href="https://www.qlone.pro/"
+              target="_blank"
+              rel="noreferrer"
+            >
               <div className="font-semibold">Qlone</div>
               <div className="text-sm muted">Guided capture</div>
             </a>
-            <a className="glass rounded-2xl p-4 transition hover:shadow-glow" href="https://kiri3d.com/" target="_blank" rel="noreferrer">
+            <a
+              className="glass rounded-2xl p-4 transition hover:shadow-glow"
+              href="https://kiri3d.com/"
+              target="_blank"
+              rel="noreferrer"
+            >
               <div className="font-semibold">KIRI Engine</div>
               <div className="text-sm muted">Photogrammetry</div>
             </a>
@@ -382,7 +451,11 @@ export default function SellerDashboard() {
           <div className="glass max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-3xl p-6 shadow-glow2">
             <div className="flex items-center justify-between gap-2">
               <h3 className="text-lg font-semibold">Edit listing</h3>
-              <button type="button" className="rounded-lg px-2 py-1 text-sm muted hover:bg-white/10" onClick={closeEdit}>
+              <button
+                type="button"
+                className="rounded-lg px-2 py-1 text-sm muted hover:bg-white/10"
+                onClick={closeEdit}
+              >
                 ✕
               </button>
             </div>
@@ -395,20 +468,26 @@ export default function SellerDashboard() {
               <input
                 className="input-neo"
                 value={editForm.title}
-                onChange={(e) => setEditForm((f) => ({ ...f, title: e.target.value }))}
+                onChange={(e) =>
+                  setEditForm((f) => ({ ...f, title: e.target.value }))
+                }
                 placeholder="Title"
                 required
               />
               <textarea
                 className="input-neo min-h-[80px]"
                 value={editForm.description}
-                onChange={(e) => setEditForm((f) => ({ ...f, description: e.target.value }))}
+                onChange={(e) =>
+                  setEditForm((f) => ({ ...f, description: e.target.value }))
+                }
                 placeholder="Description"
               />
               <input
                 className="input-neo"
                 value={editForm.location}
-                onChange={(e) => setEditForm((f) => ({ ...f, location: e.target.value }))}
+                onChange={(e) =>
+                  setEditForm((f) => ({ ...f, location: e.target.value }))
+                }
                 placeholder="Location"
               />
               <div className="grid grid-cols-2 gap-2">
@@ -416,28 +495,36 @@ export default function SellerDashboard() {
                   className="input-neo"
                   type="number"
                   value={editForm.price}
-                  onChange={(e) => setEditForm((f) => ({ ...f, price: e.target.value }))}
+                  onChange={(e) =>
+                    setEditForm((f) => ({ ...f, price: e.target.value }))
+                  }
                   placeholder="Price"
                 />
                 <input
                   className="input-neo"
                   type="number"
                   value={editForm.areaSqm}
-                  onChange={(e) => setEditForm((f) => ({ ...f, areaSqm: e.target.value }))}
+                  onChange={(e) =>
+                    setEditForm((f) => ({ ...f, areaSqm: e.target.value }))
+                  }
                   placeholder="Area m²"
                 />
                 <input
                   className="input-neo"
                   type="number"
                   value={editForm.bedrooms}
-                  onChange={(e) => setEditForm((f) => ({ ...f, bedrooms: e.target.value }))}
+                  onChange={(e) =>
+                    setEditForm((f) => ({ ...f, bedrooms: e.target.value }))
+                  }
                   placeholder="Bedrooms"
                 />
                 <input
                   className="input-neo"
                   type="number"
                   value={editForm.bathrooms}
-                  onChange={(e) => setEditForm((f) => ({ ...f, bathrooms: e.target.value }))}
+                  onChange={(e) =>
+                    setEditForm((f) => ({ ...f, bathrooms: e.target.value }))
+                  }
                   placeholder="Bathrooms"
                 />
               </div>
@@ -446,7 +533,9 @@ export default function SellerDashboard() {
                 <select
                   className="input-neo flex-1"
                   value={editForm.status}
-                  onChange={(e) => setEditForm((f) => ({ ...f, status: e.target.value }))}
+                  onChange={(e) =>
+                    setEditForm((f) => ({ ...f, status: e.target.value }))
+                  }
                 >
                   <option value="available">Available</option>
                   <option value="sold">Sold</option>
@@ -459,7 +548,12 @@ export default function SellerDashboard() {
                   type="file"
                   accept=".jpg,.jpeg,.png,.webp"
                   multiple
-                  onChange={(e) => setEditImages(Array.from(e.target.files || []))}
+                  onChange={(e) => {
+                    const files = Array.from(e.target.files || []).filter(
+                      (file) => file && file.size > 0,
+                    );
+                    setEditImages(files);
+                  }}
                 />
               </div>
               <div>
@@ -468,14 +562,24 @@ export default function SellerDashboard() {
                   className="input-neo mt-1"
                   type="file"
                   accept=".glb,.gltf,.usdz"
-                  onChange={(e) => setEditModel((e.target.files || [])[0] || null)}
+                  onChange={(e) =>
+                    setEditModel((e.target.files || [])[0] || null)
+                  }
                 />
               </div>
               <div className="flex gap-2 pt-2">
-                <button type="button" className="flex-1 rounded-xl border border-slate-300 py-2 dark:border-white/20" onClick={closeEdit}>
+                <button
+                  type="button"
+                  className="flex-1 rounded-xl border border-slate-300 py-2 dark:border-white/20"
+                  onClick={closeEdit}
+                >
                   Cancel
                 </button>
-                <button type="submit" className="btn-neon flex-1 justify-center text-black" disabled={editSubmit.loading}>
+                <button
+                  type="submit"
+                  className="btn-neon flex-1 justify-center text-black"
+                  disabled={editSubmit.loading}
+                >
                   {editSubmit.loading ? "Saving..." : "Save changes"}
                 </button>
               </div>
