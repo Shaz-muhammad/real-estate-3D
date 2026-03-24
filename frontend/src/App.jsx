@@ -18,28 +18,40 @@ import { getAuth } from "./services/auth.js";
 
 export default function App() {
   const location = useLocation();
-  const [theme, setTheme] = useState(() => localStorage.getItem("theme") || "dark");
+
+  const [theme, setTheme] = useState(
+    () => localStorage.getItem("theme") || "dark"
+  );
 
   useEffect(() => {
     const root = document.documentElement;
-    if (theme === "dark") root.classList.add("dark");
-    else root.classList.remove("dark");
+
+    if (theme === "dark") {
+      root.classList.add("dark");
+    } else {
+      root.classList.remove("dark");
+    }
+
     localStorage.setItem("theme", theme);
   }, [theme]);
 
   const auth = useMemo(() => getAuth(), [location.pathname, location.key]);
 
   return (
-    <div className="min-h-screen neo-grid text-slate-900 transition-colors duration-300 dark:text-white">
+    <div className="min-h-screen neo-grid text-slate-900 dark:text-white transition-colors duration-300">
       <Navbar theme={theme} setTheme={setTheme} auth={auth} />
+
       <div className="mx-auto max-w-6xl px-4 py-8">
         <Routes>
           <Route path="/" element={<Landing />} />
+
+          {/* Auth Routes */}
           <Route path="/signup" element={<Signup />} />
           <Route path="/login/buyer" element={<BuyerLogin />} />
           <Route path="/login/seller" element={<SellerLogin />} />
           <Route path="/login/admin" element={<AdminLogin />} />
 
+          {/* Protected Routes */}
           <Route
             path="/buyer"
             element={
@@ -48,6 +60,7 @@ export default function App() {
               </ProtectedRoute>
             }
           />
+
           <Route
             path="/seller"
             element={
@@ -56,6 +69,7 @@ export default function App() {
               </ProtectedRoute>
             }
           />
+
           <Route
             path="/buyer/liked"
             element={
@@ -64,6 +78,7 @@ export default function App() {
               </ProtectedRoute>
             }
           />
+
           <Route
             path="/admin"
             element={
@@ -73,13 +88,16 @@ export default function App() {
             }
           />
 
+          {/* Public */}
           <Route path="/properties/:id" element={<PropertyDetails />} />
 
+          {/* Redirect */}
           <Route path="/home" element={<Navigate to="/" replace />} />
+
+          {/* 404 */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
     </div>
   );
 }
-
